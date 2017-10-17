@@ -1,4 +1,28 @@
 # CarND-Controls-MPC
+---
+# MPC project
+
+## Description
+It's a project to use MPC controller to follow the reference Path by sending steering and acceleration. As to solve the nonlinear problem, we use the IPOPT and CPPAD provided by official.
+
+## Steps
+According to the MPC courses, we construct the MPC controller as follows:
+
+* Set N to 10 and dt to 0.1.
+* Calculate initial cross track error and orientation error values.
+* Define the components of the cost function including the states `x` `y` `psi` `v` `cte` `epsi`, the actuators `delta` `a` and  differential coefficient `delta - delta_pre` `a - a_pre`. 
+* Define the model constraints. These are the state update equations defined in the Vehicle Models module 
+* Fit the polynomial to the waypoints.
+
+## The Model
+we use the vehicle model provided by the course as follows:
+![equations](./model.png)
+
+## Timestep Length and Elapsed Duration (N & dt)
+According to the course guide, `N`, `dt` and `T` are hyperparameters you will need to tune for each model predictive controller you build. `T` should be as large as possible while `dt` should be as small as possible. Meanwhile, it's also not meaningful to predict in the remote future. So we choose 10 for `N` and 0.1 for `dt`, and `T` is 1 second. Other value was also chosen, for example, 10 for `N` and 0.05 for `dt`, 20 for `N` and 0.05 for `dt`.
+
+## 
+
 Self-Driving Car Engineer Nanodegree Program
 
 ---
