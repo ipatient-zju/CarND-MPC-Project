@@ -21,7 +21,20 @@ we use the vehicle model provided by the course as follows:
 ## Timestep Length and Elapsed Duration (N & dt)
 According to the course guide, `N`, `dt` and `T` are hyperparameters you will need to tune for each model predictive controller you build. `T` should be as large as possible while `dt` should be as small as possible. Meanwhile, it's also not meaningful to predict in the remote future. So we choose 10 for `N` and 0.1 for `dt`, and `T` is 1 second. Other value was also chosen, for example, 10 for `N` and 0.05 for `dt`, 20 for `N` and 0.05 for `dt`.
 
-## 
+## Polynomial Fitting and MPC Preprocessing
+we use the vehicle' perspective to fit a 3 order polynomial.
+
+## Model Predictive Control with Latency
+The latency exists between the command time when you command a steering angle and the execution time when that angle is actually achieved. To deal with this condition, we use previous actuations to account for latency.
+```
+if (t > 1) {   
+    a = vars[a_start + t - 2];
+    delta = vars[delta_start + t - 2];
+}
+```
+
+
+---
 
 Self-Driving Car Engineer Nanodegree Program
 

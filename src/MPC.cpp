@@ -48,9 +48,9 @@ class FG_eval {
 	//for the state
 	for (int i = 0; i < N; i++)
 	{
-		fg[0] += 2500 * CppAD::pow(vars[cte_start + i], 2);
-		fg[0] += 2500 * CppAD::pow(vars[epsi_start + i], 2);
-		fg[0] += 2500 * CppAD::pow(vars[v_start + i] - vel_ref, 2);
+		fg[0] += 3000 * CppAD::pow(vars[cte_start + i], 2);
+		fg[0] += 3000 * CppAD::pow(vars[epsi_start + i], 2);
+		fg[0] +=  CppAD::pow(vars[v_start + i] - vel_ref, 2);
 	}
 	
 	//for the control input
@@ -91,10 +91,12 @@ class FG_eval {
       AD<double> epsi0 = vars[epsi_start + t - 1];
       AD<double> a = vars[a_start + t - 1];
       AD<double> delta = vars[delta_start + t - 1];
+	  
       if (t > 1) {   // use previous actuations (to account for latency)
         a = vars[a_start + t - 2];
         delta = vars[delta_start + t - 2];
       }
+      
       AD<double> f0 = coeffs[0] + coeffs[1] * x0 + coeffs[2] * CppAD::pow(x0, 2) + coeffs[3] * CppAD::pow(x0, 3);
       AD<double> psides0 = CppAD::atan(coeffs[1] + 2 * coeffs[2] * x0 + 3 * coeffs[3] * CppAD::pow(x0, 2));
 
